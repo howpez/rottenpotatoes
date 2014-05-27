@@ -11,6 +11,19 @@ class MoviesController < ApplicationController
   	order = "id"
     @hilite_title = "normal"
     @hilite_release = "normal"
+    
+ 	@all_ratings = Movie.get_ratings
+ 	@show_ratings = []
+  	
+  	
+  	if params["ratings"] != nil
+  	  @all_ratings.each do |rating|
+  	    if params["ratings"][rating] != nil
+  	      @show_ratings.push(rating)
+  	    end
+  	  end 
+  	end
+  	
   	
   	# change defaults if sorting by title or release date
     if (params[:sort_by] == "title")
@@ -21,7 +34,12 @@ class MoviesController < ApplicationController
       @hilite_release = "hilite"
     end
   
-    @movies = Movie.find(:all, :order => order)    
+  
+  	if @show_ratings[0] == nil
+      @movies = Movie.find(:all, :order => order) 
+    else
+      @movies = Movie.where("rating" => @show_ratings).find(:all, :order => order)
+    end
   end
 
   def new
