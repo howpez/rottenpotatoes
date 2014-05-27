@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
-    @hilite_title = "normal"
+    @hilite_header = "normal"
     @hilite_release = "normal"
     if (params[:sort_by] == "title")
       @movies.sort! {|a,b| a.title <=> b.title}
