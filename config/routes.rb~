@@ -14,7 +14,9 @@ Rottenpotatoes::Application.routes.draw do
   #   resources :products
   resources :movies
   
-  root :to => redirect('/movies')
+  root :to => 'movies#index'
+  
+  #redirect('/movies')
 
   # Sample resource route with options:
   #   resources :products do
